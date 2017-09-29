@@ -61,7 +61,7 @@ ROOT_URLCONF = 'drchrono.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'BACKEND': 'django.template.backends.django.DjangoTemplates', 
         'DIRS': [os.path.join(BASE_DIR, 'templates').replace('\\','/'),],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -109,3 +109,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#configuration for drchrono OAUTH
+
+SOCIAL_AUTH_DRCHRONO_KEY = 'wa3YtXrWpIj1dGwTypB6T6uuhhbsIoRaagxJIoK2'
+
+SOCIAL_AUTH_DRCHRONO_SECRET = (
+    'Pvz3hB7bg7KXTc1MwYT2QyNYD5LGXjLQDzbB2dxCA5Od0jqtV5i6vwsBabhLzq8j'
+    '85UJ3tkuDQcszA78FS7muDS1pj15ChLBcRbRWlW1ycZArZayMgsFVF5QXPJ6TNzU'
+)
+
+SOCIAL_AUTH_DRCHRONO_SCOPE = []
+
+LOGIN_REDIRECT_URL = '/check-in'
