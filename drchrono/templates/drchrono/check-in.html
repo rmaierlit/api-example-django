@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div>{{username}}</div>
+        <form action="drchrono:findPatient">
+            {% csrf_token %}
+            first name
+            <input type="text" name="first-name" />
+            last name
+            <input type="text" name="last-name" />
+        </form>
+    </body>
+  </html>

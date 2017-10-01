@@ -1,8 +1,15 @@
-"""this modules contains the views for this project
-"""
+"""this modules contains the views for this project"""
 
-from django.http import HttpResponse
+##from social_auth_drchrono.backends import get_user_details
+
+import requests
+
+from django.shortcuts import render
+
+from api_helper import ApiHelper
 
 def check_in(request):
-    """testing to make sure this route works"""
-    return HttpResponse('sorry g, we\'re closed')
+    """check-in page for patients"""
+    response = ApiHelper(request.user).get_user_info()
+    context = response.json()
+    return render(request, 'drchrono/check-in.html', context)

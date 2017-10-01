@@ -6,7 +6,7 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
+    url(r'^$', TemplateView.as_view(template_name='drchrono/index.html'), name='home'),
 
     url(r'check-in', views.check_in, name="check_in"),
 
