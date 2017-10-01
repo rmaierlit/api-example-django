@@ -119,6 +119,12 @@ SOCIAL_AUTH_DRCHRONO_SECRET = (
     '85UJ3tkuDQcszA78FS7muDS1pj15ChLBcRbRWlW1ycZArZayMgsFVF5QXPJ6TNzU'
 )
 
-SOCIAL_AUTH_DRCHRONO_SCOPE = ['patients:summary:read', 'patients:summary:write', 'calendar:read', 'calendar:write']
+SOCIAL_AUTH_DRCHRONO_SCOPE = [
+    'patients:summary:read',
+    'patients:summary:write',
+    'calendar:read',
+    'calendar:write',
+    'clinical:read'
+]
 
 LOGIN_REDIRECT_URL = '/check-in'

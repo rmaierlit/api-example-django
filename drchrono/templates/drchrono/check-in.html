@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <div>{{username}}</div>
-        <form action="drchrono:findPatient">
+        <h3>Office of {{username}}</h3>
+        <h1>Patient Check In</h1>
+        <form action="{% url 'check_in' %}" method="post">
             {% csrf_token %}
-            first name
-            <input type="text" name="first-name" />
-            last name
-            <input type="text" name="last-name" />
+            {{ form }}
+            <input type="submit" value="Check In" />
         </form>
     </body>
   </html>

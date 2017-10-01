@@ -2,14 +2,36 @@
 
 ##from social_auth_drchrono.backends import get_user_details
 
-import requests
-
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 
-from api_helper import ApiHelper
+from drchrono.api_helper import ApiHelper
+from drchrono.forms import CheckIn
 
 def check_in(request):
     """check-in page for patients"""
     response = ApiHelper(request.user).get_user_info()
-    context = response.json()
+    context = response
+    if request.method == 'POST':
+        form = CheckIn(request.POST)
+        if form.is_valid():
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            response = ApiHelper(request.user).find_patient(first_name, last_name)
+            patient_id = response['id']
+            return HttpResponseRedirect('/patient/{}/update/'.format(patient_id))
+    else:
+        form = CheckIn()
+
+    context.update(form=form)
     return render(request, 'drchrono/check-in.html', context)
+
+def update_patient_info(request, patient_id):
+    """the patient can confirm their information here"""
+    context = {'patient_id': patient_id}
+    return render(request, 'drchrono/update-patient-info.html', context)
+
+def patient_appointment(request, patient_id):
+    """the patient can see their latest appointment and confirm they are waiting to be seen"""
+    context = ApiHelper(request.user).get_appointment(patient_id)
+    return render(request, 'drchrono/patient-appointment.html', context)
