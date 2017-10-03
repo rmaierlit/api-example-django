@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <div>time: {{scheduled_time}} | patient id: {{patient}} | office: {{office}} | exam room: {{exam_room}}</div>
+        {% for appointment in appointments %}
+        <div>
+            <a href="{% url 'patient_arrived' appointment.id %}">check in</a>
+            time: {{appointment.scheduled_time}} | patient id: {{appointment.patient}} | duration: {{appointment.duration}} | status: {{appointment.status}}
+        </div>
+        {% endfor %}
     </body>
   </html>

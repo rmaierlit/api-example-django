@@ -33,5 +33,11 @@ def update_patient_info(request, patient_id):
 
 def patient_appointment(request, patient_id):
     """the patient can see their latest appointment and confirm they are waiting to be seen"""
-    context = ApiHelper(request.user).get_appointment(patient_id)
+    context = {'appointments': ApiHelper(request.user).get_appointments(patient_id)}
     return render(request, 'drchrono/patient-appointment.html', context)
+
+def patient_arrived(request, appointment_id):
+    """confirms that the patient has checked in"""
+    response = ApiHelper(request.user).mark_arrived(appointment_id)
+    context = {'appointment_id': appointment_id}
+    return render(request, 'drchrono/patient-arrived.html', context)

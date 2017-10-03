@@ -23,8 +23,8 @@ class ApiHelper:
         )
         return response.json()['results'][0]
 
-    def get_appointment(self, patient_id):
-        """retrieves next appointment on the current day"""
+    def get_appointments(self, patient_id):
+        """retrieves all appointments for the current day"""
         today = datetime.date.today()
         response = requests.get(
             'https://drchrono.com/api/appointments?patient={}&date={}'.format(
@@ -33,6 +33,16 @@ class ApiHelper:
             headers=self.headers,
         )
 
-        print response.json()
+        return response.json()['results']
 
-        return response.json()['results'][0]
+    def mark_arrived(self, appointment_id):
+        """changes the status of an appointment to 'Arrived' """
+        response = requests.patch(
+            'https://drchrono.com/api/appointments/{}'.format(
+                appointment_id
+            ), 
+            data={'status': 'Arrived'},
+            headers=self.headers,
+        )
+
+        print ('status: ', response.status_code, response.content)

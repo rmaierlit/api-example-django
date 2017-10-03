@@ -22,5 +22,11 @@ urlpatterns = [
         name="patient_appointment"
     ),
 
+    url(
+        r'^appointment/(?P<appointment_id>[0-9]+)/arrived/$',
+        views.patient_arrived,
+        name="patient_arrived"
+    ),
+
     url(r'', include('social.apps.django_app.urls', namespace='social')),
 ]

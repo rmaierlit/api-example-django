@@ -124,7 +124,8 @@ SOCIAL_AUTH_DRCHRONO_SCOPE = [
     'patients:summary:write',
     'calendar:read',
     'calendar:write',
-    'clinical:read'
+    'clinical:read',
+    'clinical:write'
 ]
 
 LOGIN_REDIRECT_URL = '/check-in'
