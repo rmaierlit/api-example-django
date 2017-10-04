@@ -20,6 +20,9 @@ class Appointment(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     scheduled_time = models.DateTimeField()
     duration = models.IntegerField()
-    status = models.CharField(max_length=100)
+    status = models.CharField(max_length=100, null=True)
     time_arrived = models.DateTimeField("time when patient checked in", null=True)
     time_seen = models.DateTimeField("time when doctor saw patient", null=True)
+
+    def __str__(self):
+        return self.status + str(self.time_arrived) + str(self.time_seen)

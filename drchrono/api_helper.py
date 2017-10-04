@@ -21,7 +21,7 @@ class ApiHelper:
             ),
             headers=self.headers,
         )
-        
+
         response = response.json()
 
         if response.has_key('results') and response['results']:
@@ -42,10 +42,26 @@ class ApiHelper:
 
     def mark_arrived(self, appointment_id):
         """changes the status of an appointment to 'Arrived' """
-        response = requests.patch(
+        requests.patch(
             'https://drchrono.com/api/appointments/{}'.format(
                 appointment_id
-            ), 
+            ),
             data={'status': 'Arrived'},
+            headers=self.headers,
+        )
+
+    def update_contact_info(self, patient_id, contact_info):
+        """updates the patients cell phone, email, and emergency contact info"""
+        requests.patch(
+            'https://drchrono.com/api/patients/{}'.format(
+                patient_id
+            ),
+            data={
+                'cell_phone': contact_info['phone_number'],
+                'email': contact_info['email'],
+                'emergency_contact_name': contact_info['emergency_contact_name'],
+                'emergency_contact_phone': contact_info['emergency_contact_phone'],
+                'emergency_contact_relation': contact_info['emergency_contact_relation'],
+            },
             headers=self.headers,
         )

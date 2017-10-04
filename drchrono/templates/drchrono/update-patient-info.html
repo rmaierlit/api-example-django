@@ -13,12 +13,11 @@
 
             <p>Please update the contact information below to continue</p>
 
-            <form method="post" class="viewform">
+            <form action="{% url 'update_patient' patient_id %}" method="post" class="viewform">
                 {% csrf_token %}
                 {% form form=form %}{% endform %}
                 <input type="submit" value="Save Contact Info" />
             </form>
         </div>
-        <a href="/patient/{{patient_id}}/appointment"+>don't worry I trust my information is correct</a>
     </body>
   </html>

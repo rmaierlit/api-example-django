@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        {% if not waitlist %}
+        <p>No patients currently waiting</p>
+        {% endif %}
+
+        {% for appointment in waitlist %}
+        <div>
+            time: {{appointment.scheduled_time}} | patient: {{appointment.patient.first_name}} {{appointment.patient.last_name}} | duration: {{appointment.duration}} minutes | time arrived: {{appointment.time_arrived}}
+            <a href="{% url 'seen' appointment.appointment_id%}">mark patient as seen</a>
+        </div>
+        {% endfor %}
+
+        <p>average wait time for all patients is {{average_wait}} seconds</p>
+    </body>
+  </html>

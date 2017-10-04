@@ -2,6 +2,8 @@
 
 from drchrono.models import Patient, Appointment
 
+from django.utils import timezone
+
 class ModelHelper:
     """Helper methods to update models"""
     def add_patient(self, patient_info):
@@ -19,5 +21,27 @@ class ModelHelper:
         )
         patient.save()
 
+    def add_appointment(self, app):
+        """adds appointment"""
+        patient = Patient.objects.get(pk=app['patient'])
+        appointment = Appointment(
+            appointment_id= app['id'],
+            patient = patient,
+            scheduled_time = app['scheduled_time'],
+            duration = app['duration'],
+            status = app['status'],
+        )
+        appointment.save()
 
+    def start_waiting(self, appointment):
+        """sets status to Arrived and records time arrived"""
+        appointment.status = "Arrived"
+        appointment.time_arrived = timezone.now()
+        appointment.save()
+
+    def patient_seen(self, appointment):
+        """sets status to In Room and records time patient was seen"""
+        appointment.status = "In Room"
+        appointment.time_seen = timezone.now()
+        appointment.save()
         
