@@ -6,7 +6,11 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
 from drchrono.api_helper import ApiHelper
+from drchrono.model_helper import ModelHelper
 from drchrono.forms import CheckIn
+from drchrono.models import Patient
+
+helper = ModelHelper()
 
 def check_in(request):
     """check-in page for patients"""
@@ -23,6 +27,8 @@ def check_in(request):
                 # if a matching user is not found
                 message = 'no user found matching this information'
             else:
+                print (response.keys())
+                helper.add_patient(response)
                 patient_id = response['id']
                 return HttpResponseRedirect('/patient/{}/update/'.format(patient_id))
     else:
@@ -33,7 +39,13 @@ def check_in(request):
 
 def update_patient_info(request, patient_id):
     """the patient can confirm their information here"""
-    context = {'patient_id': patient_id}
+    patient = Patient.objects.get(patient_id=patient_id)
+    context = {
+        'patient_id': patient.patient_id,
+        'first_name': patient.first_name, 
+        'last_name': patient.last_name,
+        'date_of_birth': patient.date_of_birth
+    }
     return render(request, 'drchrono/update-patient-info.html', context)
 
 def patient_appointment(request, patient_id):
