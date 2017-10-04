@@ -48,5 +48,4 @@ class ApiHelper:
             data={'status': 'Arrived'},
             headers=self.headers,
         )
-
-        print ('status: ', response.status_code, response.content)
+        
