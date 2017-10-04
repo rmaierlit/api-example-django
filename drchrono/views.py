@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 
 from drchrono.api_helper import ApiHelper
 from drchrono.model_helper import ModelHelper
-from drchrono.forms import CheckIn
+from drchrono.forms import CheckIn, UpdateContactInfo
 from drchrono.models import Patient
 
 helper = ModelHelper()
@@ -39,13 +39,19 @@ def check_in(request):
 
 def update_patient_info(request, patient_id):
     """the patient can confirm their information here"""
-    patient = Patient.objects.get(patient_id=patient_id)
-    context = {
-        'patient_id': patient.patient_id,
-        'first_name': patient.first_name, 
-        'last_name': patient.last_name,
-        'date_of_birth': patient.date_of_birth
-    }
+    context = Patient.objects.filter(patient_id=patient_id).values().first()
+
+    if request.method == "POST":
+        form = UpdateContactInfo(request.post)
+        if form.is_valid():
+            #ApiHelper(request.user).update_contact_info(form.cleaned_data)
+            return HttpResponseRedirect('/')
+    else:
+        form = UpdateContactInfo(initial={'phone_number': context['phone_number']}) #context contains the patient info
+
+    print('patient is ', context )
+    context.update(form=form)
+
     return render(request, 'drchrono/update-patient-info.html', context)
 
 def patient_appointment(request, patient_id):

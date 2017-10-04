@@ -7,6 +7,12 @@ class Patient(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     date_of_birth = models.DateTimeField()
+    phone_number = models.CharField(max_length=100)
+    email = models.CharField(max_length=100)
+    emergency_contact_name = models.CharField(max_length=100)
+    emergency_contact_phone = models.CharField(max_length=100)
+    emergency_contact_relation = models.CharField(max_length=100)
+
 
 class Appointment(models.Model):
     """Appointment information needed for app"""

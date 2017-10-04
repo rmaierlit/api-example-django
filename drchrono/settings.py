@@ -121,8 +121,8 @@ SOCIAL_AUTH_DRCHRONO_SECRET = (
 )
 
 SOCIAL_AUTH_DRCHRONO_SCOPE = [
-    'patients:summary:read',
-    'patients:summary:write',
+    'patients:read',
+    'patients:write',
     'calendar:read',
     'calendar:write',
     'clinical:read',

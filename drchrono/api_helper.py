@@ -16,11 +16,12 @@ class ApiHelper:
     def find_patient(self, first_name, last_name):
         """searchs api for matching patient"""
         response = requests.get(
-            'https://drchrono.com/api/patients_summary?first_name={}&last_name={}'.format(
+            'https://drchrono.com/api/patients?first_name={}&last_name={}'.format(
                 first_name, last_name
             ),
             headers=self.headers,
         )
+        
         response = response.json()
 
         if response.has_key('results') and response['results']:
@@ -48,4 +49,3 @@ class ApiHelper:
             data={'status': 'Arrived'},
             headers=self.headers,
         )
-        

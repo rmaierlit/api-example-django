@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <div>{{patient_id}} {{first_name}} {{last_name}}</div>
-        <div>Date of Birth: {{date_of_birth}}</div>
+        {% load static %}
+        {% include 'material/includes/material_css.html' %}
+        <script src="{% static 'material/js/jquery.js' %}"></script>
+        {% include 'material/includes/material_js.html' %}
+        {% load material_form %}
+
+        <div style="width:80vw; margin-left: 10vw; margin-top: 5vh">
+            <h5>Name: {{first_name}} {{last_name}}</h5>
+            <h5>Date of Birth: {{date_of_birth}}</h5>
+
+            <p>Please update the contact information below to continue</p>
+
+            <form method="post" class="viewform">
+                {% csrf_token %}
+                {% form form=form %}{% endform %}
+                <input type="submit" value="Save Contact Info" />
+            </form>
+        </div>
         <a href="/patient/{{patient_id}}/appointment"+>don't worry I trust my information is correct</a>
     </body>
   </html>
