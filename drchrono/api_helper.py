@@ -21,7 +21,12 @@ class ApiHelper:
             ),
             headers=self.headers,
         )
-        return response.json()['results'][0]
+        response = response.json()
+
+        if response.has_key('results') and response['results']:
+            return response['results'][0]
+        #else if no matching patient found
+        return None
 
     def get_appointments(self, patient_id):
         """retrieves all appointments for the current day"""
@@ -32,7 +37,6 @@ class ApiHelper:
             ),
             headers=self.headers,
         )
-
         return response.json()['results']
 
     def mark_arrived(self, appointment_id):
