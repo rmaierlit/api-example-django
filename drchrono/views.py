@@ -12,18 +12,23 @@ def check_in(request):
     """check-in page for patients"""
     response = ApiHelper(request.user).get_user_info()
     context = response
+    message = ''
     if request.method == 'POST':
         form = CheckIn(request.POST)
         if form.is_valid():
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
             response = ApiHelper(request.user).find_patient(first_name, last_name)
-            patient_id = response['id']
-            return HttpResponseRedirect('/patient/{}/update/'.format(patient_id))
+            if response is None:
+                # if a matching user is not found
+                message = 'no user found matching this information'
+            else:
+                patient_id = response['id']
+                return HttpResponseRedirect('/patient/{}/update/'.format(patient_id))
     else:
         form = CheckIn()
 
-    context.update(form=form)
+    context.update(form=form, message=message)
     return render(request, 'drchrono/check-in.html', context)
 
 def update_patient_info(request, patient_id):

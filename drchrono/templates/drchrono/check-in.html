@@ -3,6 +3,9 @@
     <body>
         <h3>Office of {{username}}</h3>
         <h1>Patient Check In</h1>
+        {% if message != '' %}
+            <h4 style="color:red">{{message}}</h4>
+        {% endif %}
         <form action="{% url 'check_in' %}" method="post">
             {% csrf_token %}
             {{ form }}
